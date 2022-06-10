@@ -6,6 +6,8 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="//cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css">
+    
     <title>Manage Companies</title>
 </head>
 <body>
@@ -79,8 +81,7 @@
   <!--Main Navigation-->
   
   <!--Main layout-->
-  <main class="main-body" style="margin-top: 58px; margin-left: 70px;  ">
-
+  <main class="main-body" style="margin-top: 58px; margin-left: 70px; ">
     <a href="{{url('add-company')}}" type="button" class="btn btn-primary" style="margin-bottom: 20px; margin-top: 20px;">Add Company</a>
     @if(Session::has('company_added'))
 				
@@ -101,8 +102,8 @@
     </div>
     @endif
 
-    <table class="table">
-      <thead class="thead-dark">
+    <table id="myTable">
+      <thead >
         <tr>
           <th scope="col">#</th>
           <th scope="col">Name</th>
@@ -118,7 +119,7 @@
         <td>{{$item->id}}</td>
         <td>{{$item->name}}</td>
         <td>{{$item->email}}</td>
-        <td><img height="100px" width="100px" src="images/{{$item->image }}"  alt="logo"></td>
+        <td><img height="100px" width="100px" src="storage/{{$item->image}}"  alt="logo"></td> 
         <td>{{$item->website}}</td>
         <td>
           <a class="btn btn-success"   href="{{url('edit-company/'.$item->id)}}"><i class="far fa-edit"></i></a> &nbsp;
@@ -126,13 +127,13 @@
         </td>
       </tr>
        @endforeach
-     
+       {{--  {{asset('storage/'.$item->image)}}--}}
       </tbody>
      
     </table>
-    <div class="d-flex justify-content-center">
+    {{-- <div class="d-flex justify-content-center">
       {!! $data->links() !!}
-    </div>
+    </div> --}}
   </main>
   <!--Main layout-->
   <style>
@@ -179,50 +180,14 @@
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
   </style>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <script>
-      // Graph
-var ctx = document.getElementById("myChart");
-
-var myChart = new Chart(ctx, {
-  type: "line",
-  data: {
-    labels: [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ],
-    datasets: [
-      {
-        data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-        lineTension: 0,
-        backgroundColor: "transparent",
-        borderColor: "#007bff",
-        borderWidth: 4,
-        pointBackgroundColor: "#007bff",
-      },
-    ],
-  },
-  options: {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: false,
-          },
-        },
-      ],
-    },
-    legend: {
-      display: false,
-    },
-  },
-});
-  </script>
-  
+  <script src="{{asset('js/app.js')}}"></script>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+ <script src="//cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script> 
+ <script>
+   $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+ </script>
 </body>
 </html>

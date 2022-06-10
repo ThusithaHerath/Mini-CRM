@@ -1,4 +1,9 @@
-<!DOCTYPE html>
+
+
+
+
+
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -80,7 +85,13 @@
   
   <!--Main layout-->
   <main class="main-body" style="margin-top: 58px; margin-left: 70px;">
-    <a type="button" href="{{url('add-employee')}}" class="btn btn-primary" style="margin-bottom: 20px; margin-top: 20px;">Add Employee</a>
+    <div >
+
+    </div>
+    <div class="relative flex items-top justify-center min-h-screen bg-gray-100 sm:items-center py-4 sm:pt-0" id="app">    
+      <a type="button" href="{{url('add-employee')}}" class="btn btn-primary" style="margin-bottom: 20px; margin-top: 20px;">Add Employee</a>       <hello-world/>
+  </div>
+    
     
     @if(Session::has('employee_added'))
 				
@@ -181,50 +192,9 @@
   overflow-y: auto; /* Scrollable contents if viewport is shorter than content. */
 }
   </style>
+  <script src="{{ mix('js/app.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-  <script>
-      // Graph
-var ctx = document.getElementById("myChart");
 
-var myChart = new Chart(ctx, {
-  type: "line",
-  data: {
-    labels: [
-      "Sunday",
-      "Monday",
-      "Tuesday",
-      "Wednesday",
-      "Thursday",
-      "Friday",
-      "Saturday",
-    ],
-    datasets: [
-      {
-        data: [15339, 21345, 18483, 24003, 23489, 24092, 12034],
-        lineTension: 0,
-        backgroundColor: "transparent",
-        borderColor: "#007bff",
-        borderWidth: 4,
-        pointBackgroundColor: "#007bff",
-      },
-    ],
-  },
-  options: {
-    scales: {
-      yAxes: [
-        {
-          ticks: {
-            beginAtZero: false,
-          },
-        },
-      ],
-    },
-    legend: {
-      display: false,
-    },
-  },
-});
-  </script>
   
 </body>
-</html>
+</html> 

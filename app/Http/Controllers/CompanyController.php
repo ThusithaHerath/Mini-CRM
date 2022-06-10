@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use File;
 use Session;
 use App\Notifications\Announcement;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\EmailNotification;
 
 class CompanyController extends Controller
 {
@@ -17,7 +19,7 @@ class CompanyController extends Controller
      */
     public function index()
     {
-        $data = Company::paginate(10);
+        $data = Company::all();
         return view('admin.company.index',compact('data'));
     }
    
@@ -59,6 +61,8 @@ class CompanyController extends Controller
     
     );
 
+       
+
         $data = new Company;
         $data->name = $request->input('name');
         $data->email = $request->input('email');
@@ -69,13 +73,13 @@ class CompanyController extends Controller
 
         $logo=$request->logo;
         $logoname=time().'.'.$logo->getClientOriginalExtension();
-        $request->logo->move('images',$logoname);
+        $request->logo->move('storage',$logoname);
         $data->logo=$logoname;
 
         $data->save();
-
-
-       
+        
+        // send email whenever new company is entered 
+        Mail::to('testemail@gmail.com')->send(new EmailNotification());
 
         //sending to email 
         // Notification::route('mail',['thusithalherath@gmail.com'])->notify(new Announcement ($announcement));
@@ -125,14 +129,14 @@ class CompanyController extends Controller
 
 
         //stop duplicating one image again and again by destroying once new image is replaced 
-        $destination = 'images/'.$data->logo;
+        $destination = 'storage/'.$data->logo;
         if(File::exists($destination)){
             File::delete($destination);
         }
 
         $logo=$request->logo;
         $logoname=time().'.'.$logo->getClientOriginalExtension();
-        $request->logo->move('images',$logoname);
+        $request->logo->move('storage',$logoname);
         $data->logo=$logoname;
 
         $data->save();
